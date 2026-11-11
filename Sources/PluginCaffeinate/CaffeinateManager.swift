@@ -110,7 +110,7 @@ class CaffeinateManager: SuperLog {
 
     /// 从 LocalStore 重新加载用户配置的默认模式。
     func reloadPersistedDefaultMode() {
-        if let raw = CaffeinateLocalStore.shared.defaultModeRaw,
+        if let raw = CaffeinateLocalStore.shared.defaultModeRaw(pluginID: pluginID),
            let stored = SleepMode(rawValue: raw) {
             persistedDefaultMode = stored
         } else {
@@ -123,7 +123,7 @@ class CaffeinateManager: SuperLog {
     /// - Parameter mode: 要持久化的模式；传 `nil` 表示清除偏好（恢复随用随选）。
     @discardableResult
     func setPersistedDefaultMode(_ mode: SleepMode?) -> Bool {
-        let success = CaffeinateLocalStore.shared.setDefaultModeRaw(mode?.rawValue)
+        let success = CaffeinateLocalStore.shared.setDefaultModeRaw(mode?.rawValue, pluginID: pluginID)
         if success {
             persistedDefaultMode = mode
             if Self.verbose {

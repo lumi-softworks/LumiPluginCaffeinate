@@ -25,12 +25,17 @@ public final class CaffeinateLocalStore: SuperLog, @unchecked Sendable {
 
     private let fileManager = FileManager.default
     private let queue = DispatchQueue(label: "CaffeinateLocalStore.queue", qos: .userInitiated)
-    private var settingsDirectory: URL?
-    private var settingsFileURL: URL?
-    private var corruptSettingsFileURL: URL?
 
-    /// 是否已经绑定到宿主提供的存储目录（`configure(storage:)` 调用后为 true）。
-    private(set) var isConfigured = false
+    /// 按插件 ID 缓存的存储位置。
+    ///
+    /// 单例被多个插件实例共享时（例如同一进程内既有 Lumi 又有 Wakey 的插件实例，
+    /// 或者测试里为不同插件 ID 注入不同目录），如果只保留「最后配置的那一份」，
+    /// 后一次 `configure` 会把前一次的目录顶掉——前一个插件的读写会落到别人的
+    /// 目录里，测试也会因为临时目录已被删除而莫名失败。
+    ///
+    /// 因此这里按插件 ID 分开寻址：调用方始终带着自己的 pluginID 来读写，
+    /// 不存在「当前是哪个插件」这种隐式状态。
+    private var locationsByPluginID: [String: StoreLocation] = [:]
 
     // MARK: - Initialization
 
@@ -38,19 +43,21 @@ public final class CaffeinateLocalStore: SuperLog, @unchecked Sendable {
         self.init(settingsDirectory: nil)
     }
 
+    /// 仅用于测试：直接绑定到一个固定的设置目录。
     init(settingsDirectory root: URL?) {
         if let root {
-            self.settingsDirectory = root
-            self.settingsFileURL = root.appendingPathComponent("settings.plist")
-            self.corruptSettingsFileURL = root.appendingPathComponent("settings.corrupt.plist")
+            let location = StoreLocation(root: root)
+            self.locationsByPluginID[Self.testPluginID] = location
             do {
-                try fileManager.createDirectory(at: root, withIntermediateDirectories: true)
+                try fileManager.createDirectory(at: location.settingsDirectory, withIntermediateDirectories: true)
             } catch {
                 Self.logger.error("\(self.t)Create caffeinate settings directory failed: \(error.localizedDescription)")
             }
-            self.isConfigured = true
         }
     }
+
+    /// 测试用的虚拟插件 ID：把固定目录绑定到这个键上。
+    private static let testPluginID = "__caffeinate_test__"
 
     // MARK: - Configuration
 
@@ -60,6 +67,9 @@ public final class CaffeinateLocalStore: SuperLog, @unchecked Sendable {
     func configure(storage: (any StorageProviding)?, pluginID: String) {
         guard let storage else {
             Self.logger.error("\(self.t)storage is nil; caffeinate local store stays unconfigured")
+            // 清掉这个插件 ID 的残留位置：否则它会继续写到上一个实例留下的
+            // 目录里，读到的却是别人的数据。
+            self.locationsByPluginID.removeValue(forKey: pluginID)
             return
         }
 
@@ -73,10 +83,7 @@ public final class CaffeinateLocalStore: SuperLog, @unchecked Sendable {
         } catch {
             Self.logger.error("\(self.t)Create caffeinate settings directory failed: \(error.localizedDescription)")
         }
-        self.settingsDirectory = settingsRoot
-        self.settingsFileURL = settingsRoot.appendingPathComponent("settings.plist")
-        self.corruptSettingsFileURL = settingsRoot.appendingPathComponent("settings.corrupt.plist")
-        self.isConfigured = true
+        self.locationsByPluginID[pluginID] = StoreLocation(root: settingsRoot)
     }
 
     /// 将旧版使用短 ID 的目录内容迁移到规范插件 ID 目录。
@@ -118,61 +125,61 @@ public final class CaffeinateLocalStore: SuperLog, @unchecked Sendable {
     // MARK: - Public API
 
     /// 默认启动模式（`SleepMode` 字符串）。未配置时返回 `nil`。
-    var defaultModeRaw: String? {
-        string(forKey: Keys.defaultMode)
+    func defaultModeRaw(pluginID: String) -> String? {
+        string(forKey: Keys.defaultMode, pluginID: pluginID)
     }
 
     /// 设置默认启动模式（持久化）。传 `nil` 表示清除。
     @discardableResult
-    func setDefaultModeRaw(_ value: String?) -> Bool {
-        set(value, forKey: Keys.defaultMode)
+    func setDefaultModeRaw(_ value: String?, pluginID: String) -> Bool {
+        set(value, forKey: Keys.defaultMode, pluginID: pluginID)
     }
 
     @discardableResult
-    public func set(_ value: Any?, forKey key: String) -> Bool {
+    func set(_ value: Any?, forKey key: String, pluginID: String) -> Bool {
         queue.sync {
-            var dict = readDict()
+            var dict = readDict(pluginID: pluginID)
             if let value {
                 dict[key] = value
             } else {
                 dict.removeValue(forKey: key)
             }
-            return writeDict(dict)
+            return writeDict(dict, pluginID: pluginID)
         }
     }
 
-    public func object(forKey key: String) -> Any? {
-        queue.sync { readDict()[key] }
+    func object(forKey key: String, pluginID: String) -> Any? {
+        queue.sync { readDict(pluginID: pluginID)[key] }
     }
 
-    public func string(forKey key: String) -> String? {
-        object(forKey: key) as? String
+    func string(forKey key: String, pluginID: String) -> String? {
+        object(forKey: key, pluginID: pluginID) as? String
     }
 
     // MARK: - Private Helpers
 
-    private func readDict() -> [String: Any] {
-        guard let settingsFileURL else { return [:] }
+    private func readDict(pluginID: String) -> [String: Any] {
+        guard let settingsFileURL = locationsByPluginID[pluginID]?.settingsFileURL else { return [:] }
         guard fileManager.fileExists(atPath: settingsFileURL.path) else { return [:] }
         do {
             let data = try Data(contentsOf: settingsFileURL)
             let plist = try PropertyListSerialization.propertyList(from: data, options: [], format: nil)
             guard let dict = plist as? [String: Any] else {
                 Self.logger.error("\(self.t)Read caffeinate settings failed: root plist is not a dictionary")
-                quarantineCorruptSettings()
+                quarantineCorruptSettings(pluginID: pluginID)
                 return [:]
             }
             return dict
         } catch {
             Self.logger.error("\(self.t)Read caffeinate settings failed: \(error.localizedDescription)")
-            quarantineCorruptSettings()
+            quarantineCorruptSettings(pluginID: pluginID)
             return [:]
         }
     }
 
     @discardableResult
-    private func writeDict(_ dict: [String: Any]) -> Bool {
-        guard let settingsDirectory, let settingsFileURL else {
+    private func writeDict(_ dict: [String: Any], pluginID: String) -> Bool {
+        guard let location = locationsByPluginID[pluginID] else {
             // 未配置：写入操作静默失败并记录日志。
             Self.logger.error("\(self.t)Persist caffeinate settings skipped: store not configured")
             return false
@@ -185,14 +192,14 @@ public final class CaffeinateLocalStore: SuperLog, @unchecked Sendable {
             return false
         }
 
-        let tmp = settingsDirectory.appendingPathComponent("settings.tmp")
+        let tmp = location.settingsDirectory.appendingPathComponent("settings.tmp")
         do {
-            try fileManager.createDirectory(at: settingsDirectory, withIntermediateDirectories: true)
+            try fileManager.createDirectory(at: location.settingsDirectory, withIntermediateDirectories: true)
             try data.write(to: tmp, options: .atomic)
-            if fileManager.fileExists(atPath: settingsFileURL.path) {
-                _ = try fileManager.replaceItemAt(settingsFileURL, withItemAt: tmp)
+            if fileManager.fileExists(atPath: location.settingsFileURL.path) {
+                _ = try fileManager.replaceItemAt(location.settingsFileURL, withItemAt: tmp)
             } else {
-                try fileManager.moveItem(at: tmp, to: settingsFileURL)
+                try fileManager.moveItem(at: tmp, to: location.settingsFileURL)
             }
             return true
         } catch {
@@ -202,19 +209,34 @@ public final class CaffeinateLocalStore: SuperLog, @unchecked Sendable {
         }
     }
 
-    private func quarantineCorruptSettings() {
-        guard let settingsFileURL, let corruptSettingsFileURL,
-              fileManager.fileExists(atPath: settingsFileURL.path) else {
+    private func quarantineCorruptSettings(pluginID: String) {
+        guard let location = locationsByPluginID[pluginID],
+              fileManager.fileExists(atPath: location.settingsFileURL.path) else {
             return
         }
         do {
-            if fileManager.fileExists(atPath: corruptSettingsFileURL.path) {
-                try fileManager.removeItem(at: corruptSettingsFileURL)
+            if fileManager.fileExists(atPath: location.corruptSettingsFileURL.path) {
+                try fileManager.removeItem(at: location.corruptSettingsFileURL)
             }
-            try fileManager.moveItem(at: settingsFileURL, to: corruptSettingsFileURL)
+            try fileManager.moveItem(at: location.settingsFileURL, to: location.corruptSettingsFileURL)
         } catch {
             Self.logger.error("\(self.t)Quarantine corrupt caffeinate settings failed: \(error.localizedDescription)")
         }
+    }
+}
+
+// MARK: - Store Location
+
+/// 一个插件 ID 对应的设置文件位置。
+private struct StoreLocation {
+    let settingsDirectory: URL
+    let settingsFileURL: URL
+    let corruptSettingsFileURL: URL
+
+    init(root: URL) {
+        self.settingsDirectory = root
+        self.settingsFileURL = root.appendingPathComponent("settings.plist")
+        self.corruptSettingsFileURL = root.appendingPathComponent("settings.corrupt.plist")
     }
 }
 

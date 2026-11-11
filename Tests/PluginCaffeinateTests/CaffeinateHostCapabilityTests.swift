@@ -158,16 +158,69 @@ struct CaffeinateHostCapabilityTests {
     }
 
     @Test("已在防休眠时不再套用默认模式")
-    func doesNotOverrideActiveSession() {
+    func doesNotOverrideActiveSession() throws {
+        let root = try makeTemporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: root) }
+
         let fake = FakeCaffeinateEnvironment()
         let manager = CaffeinateManager(environment: fake)
-        manager.configure(storage: nil, logo: nil, pluginID: "test.caffeinate")
+        manager.configure(
+            storage: FakeStorageProviding(dataRootDirectory: root),
+            logo: nil,
+            pluginID: "test.caffeinate"
+        )
         #expect(manager.setPersistedDefaultMode(.systemOnly))
 
         manager.activate(mode: .systemAndDisplay, duration: 0)
 
         #expect(manager.applyPersistedDefaultModeIfNeeded() == false)
         #expect(manager.activeAction == .systemAndDisplay)
+    }
+
+    @Test("两个插件 ID 各自的偏好互不干扰")
+    func preferencesAreIsolatedPerPluginID() throws {
+        let rootA = try makeTemporaryDirectory()
+        let rootB = try makeTemporaryDirectory()
+        defer {
+            try? FileManager.default.removeItem(at: rootA)
+            try? FileManager.default.removeItem(at: rootB)
+        }
+
+        let managerA = CaffeinateManager(environment: FakeCaffeinateEnvironment())
+        managerA.configure(
+            storage: FakeStorageProviding(dataRootDirectory: rootA),
+            logo: nil,
+            pluginID: "brand.a.caffeinate"
+        )
+        #expect(managerA.setPersistedDefaultMode(.systemOnly))
+
+        let managerB = CaffeinateManager(environment: FakeCaffeinateEnvironment())
+        managerB.configure(
+            storage: FakeStorageProviding(dataRootDirectory: rootB),
+            logo: nil,
+            pluginID: "brand.b.caffeinate"
+        )
+        #expect(managerB.setPersistedDefaultMode(.systemAndDisplay))
+
+        // 各自读到自己的偏好，不串味。
+        managerA.reloadPersistedDefaultMode()
+        managerB.reloadPersistedDefaultMode()
+        #expect(managerA.persistedDefaultMode == .systemOnly)
+        #expect(managerB.persistedDefaultMode == .systemAndDisplay)
+    }
+
+    @Test("没有存储能力时偏好写不进去，但插件仍可用")
+    func persistenceIsOptionalButPluginStillWorks() {
+        let fake = FakeCaffeinateEnvironment()
+        let manager = CaffeinateManager(environment: fake)
+        manager.configure(storage: nil, logo: nil, pluginID: "test.caffeinate")
+
+        // 没有存储能力时写入失败——插件不会因此不可用。
+        #expect(manager.setPersistedDefaultMode(.systemOnly) == false)
+        #expect(manager.persistedDefaultMode == nil)
+
+        #expect(manager.activate(mode: .systemAndDisplay, duration: 0))
+        #expect(manager.isActive)
     }
 
     // MARK: - 关屏动作的状态语义
