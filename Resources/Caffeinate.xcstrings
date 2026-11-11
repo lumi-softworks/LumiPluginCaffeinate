@@ -135,24 +135,25 @@
         }
       }
     },
-    "Actions: three anti-sleep modes, each with an icon and a selection checkmark.": {
+    "Actions: two anti-sleep modes with a selection checkmark, plus one separate instant-action button below them.": {
+      "comment": "",
       "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actions: two anti-sleep modes with a selection checkmark, plus one separate instant-action button below them."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "操作：三种防休眠模式，每项配一个图标，选中时显示对勾。"
+            "value": "操作：两种防休眠模式带对勾标记，下方另有一个独立的即时动作按钮。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "操作：三種防休眠模式，每項配一個圖示，選中時顯示打勾。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Actions: three anti-sleep modes, each with an icon and a selection checkmark."
+            "value": "操作：兩種防休眠模式帶對勾標記，下方另有一個獨立的即時動作按鈕。"
           }
         }
       }
@@ -197,6 +198,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add a duration for manual activation."
+          }
+        }
+      }
+    },
+    "After it runs, the session keeps the same behaviour as Keep Awake & Allow Display Sleep, so that mode is the one marked with a checkmark.": {
+      "comment": "",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After it runs, the session keeps the same behaviour as Keep Awake & Allow Display Sleep, so that mode is the one marked with a checkmark."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "执行后，会话的行为与「阻止休眠并允许屏幕关闭」一致，因此带对勾的是那一项。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "執行後，會話的行為與「阻止休眠並允許螢幕關閉」一致，因此帶對勾的是那一項。"
           }
         }
       }
@@ -715,6 +739,29 @@
         }
       }
     },
+    "Instant Action": {
+      "comment": "",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instant Action"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "即时动作"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "即時動作"
+          }
+        }
+      }
+    },
     "Interface": {
       "localizations": {
         "zh-Hans": {
@@ -846,6 +893,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep Awake & Turn Off Display Now"
+          }
+        }
+      }
+    },
+    "Keep Awake & Turn Off Display Now: an action, not a mode. It turns the display off immediately and keeps the system awake.": {
+      "comment": "",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep Awake & Turn Off Display Now: an action, not a mode. It turns the display off immediately and keeps the system awake."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠并立即关闭屏幕：一个动作，而非一种模式。它会立刻关闭屏幕，同时保持系统唤醒。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並立即關閉螢幕：一個動作，而非一種模式。它會立刻關閉螢幕，同時保持系統喚醒。"
           }
         }
       }
@@ -1318,6 +1388,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Custom interval"
+          }
+        }
+      }
+    },
+    "The instant-action button below the modes turns the display off right away and keeps the system awake; it is an action, not a third mode.": {
+      "comment": "",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The instant-action button below the modes turns the display off right away and keeps the system awake; it is an action, not a third mode."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "模式下方的即时动作按钮会立刻关闭屏幕并保持系统唤醒；它是一个动作，而不是第三种模式。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "模式下方的即時動作按鈕會立刻關閉螢幕並保持系統喚醒；它是一個動作，而不是第三種模式。"
           }
         }
       }

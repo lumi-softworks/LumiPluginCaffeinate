@@ -1,6 +1,18 @@
 import SwiftUI
 
-/// Anti-sleep quick actions component
+/// Anti-sleep quick actions component.
+///
+/// 弹窗的「操作」区由两组构成：
+///
+/// 1. **模式单选组**（前两项）：互斥的运行模式，带勾选标记。再次点击当前
+///    生效的模式可停止防休眠。
+/// 2. **即时动作组**（第三项）：一次性的动作按钮，不参与模式单选。
+///
+/// 把第三项单列成组是必要的，因为它在语义上不是「第三个模式」：
+/// `activateAndTurnOffDisplay()` 的稳态就是「防休眠 + 允许关屏」，只是额外
+/// 附带一次「立刻把屏幕关掉」的副作用。它从来不是一个可持续的独立模式，
+/// 因此也不该占用右侧那个「当前生效模式」的对勾位——否则用户点了它之后
+/// 看到的是第二项打勾，会误以为自己改错了模式。
 struct CaffeinateQuickActions: View {
     @State private var manager = CaffeinateManager.shared
 
@@ -8,6 +20,8 @@ struct CaffeinateQuickActions: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            // MARK: 模式单选组
+
             QuickActionMenuItem(
                 title: String(localized: "Keep Awake & Display On", table: "Caffeinate", bundle: .module, comment: "Option to keep both system and display awake"),
                 icon: "sun.max.fill",
@@ -33,17 +47,21 @@ struct CaffeinateQuickActions: View {
                 }
             )
 
-            Divider()
-                .padding(.leading, 36)
+            // MARK: 即时动作组
 
-            QuickActionMenuItem(
-                title: String(localized: "Keep Awake & Turn Off Display Now", table: "Caffeinate", bundle: .module, comment: "Option to keep system awake and turn off display immediately"),
+            // 与上面的单选组之间留出间距并加一条更明显的分隔线，
+            // 让用户一眼看出「下面是动作，上面是模式」。
+            Divider()
+                .padding(.top, 4)
+                .padding(.bottom, 4)
+
+            QuickActionButton(
+                title: String(localized: "Keep Awake & Turn Off Display Now", table: "Caffeinate", bundle: .module, comment: "Action that keeps the system awake and turns off the display immediately"),
                 icon: "power",
                 color: .purple,
-                showCheckmark: false, // Instant action, no checkmark
                 identifier: "\(configuration.accessibilityIdentifierPrefix).action.turn-off-display",
                 action: {
-                    // Turn off display immediately and switch to "systemOnly" mode
+                    // 立即关屏并切换到「systemOnly」模式。
                     manager.activateAndTurnOffDisplay(duration: manager.selectedDuration)
                 }
             )
@@ -68,23 +86,16 @@ struct CaffeinateQuickActions: View {
 
 // MARK: - Quick Action Menu Item
 
+/// 模式单选项：带勾选标记的可选项。
 private struct QuickActionMenuItem: View {
     let title: String
     let icon: String
     let color: Color
     var isSelected: Bool = false
-    var showCheckmark: Bool? = nil // nil means automatic based on isSelected
     let identifier: String
     let action: () -> Void
 
     @State private var isHovering = false
-
-    private var shouldShowCheckmark: Bool {
-        if let showCheckmark = showCheckmark {
-            return showCheckmark
-        }
-        return isSelected
-    }
 
     /// 快捷操作菜单项的视图主体
     var body: some View {
@@ -101,8 +112,8 @@ private struct QuickActionMenuItem: View {
 
                 Spacer()
 
-                // Show checkmark
-                if shouldShowCheckmark {
+                // 勾选标记只出现在可选项上，标示当前生效的模式。
+                if isSelected {
                     Image(systemName: "checkmark")
                         .font(.system(size: 10, weight: .semibold))
                         .foregroundColor(isHovering ? .white : color)
@@ -114,7 +125,60 @@ private struct QuickActionMenuItem: View {
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier(identifier)
-        .accessibilityValue(shouldShowCheckmark ? "selected" : "not selected")
+        .accessibilityValue(isSelected ? "selected" : "not selected")
+        .background(
+            Rectangle()
+                .fill(isHovering ? Color(nsColor: .selectedContentBackgroundColor) : Color.clear)
+        )
+        .onHover { hovering in
+            isHovering = hovering
+        }
+    }
+}
+
+// MARK: - Quick Action Button
+
+/// 即时动作按钮：执行一次动作，不表达任何持续状态。
+///
+/// 与 `QuickActionMenuItem` 的区别：
+/// - 右侧没有对勾位——动作没有「选中」这回事；
+/// - 无障碍标识不带 `accessibilityValue` 的勾选语义，VoiceOver 读作按钮
+///   而不是可选项。
+private struct QuickActionButton: View {
+    let title: String
+    let icon: String
+    let color: Color
+    let identifier: String
+    let action: () -> Void
+
+    @State private var isHovering = false
+
+    /// 动作按钮的视图主体
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 12) {
+                Image(systemName: icon)
+                    .font(.system(size: 11))
+                    .foregroundColor(isHovering ? .white : color)
+                    .frame(width: 18)
+
+                Text(title)
+                    .font(.system(size: 11))
+                    .foregroundColor(isHovering ? .white : .secondary)
+
+                Spacer()
+
+                // 动作按钮用箭头而非对勾，表明「点下去会做一件事」。
+                Image(systemName: "arrow.right")
+                    .font(.system(size: 9, weight: .semibold))
+                    .foregroundColor(isHovering ? .white : color.opacity(0.8))
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier(identifier)
         .background(
             Rectangle()
                 .fill(isHovering ? Color(nsColor: .selectedContentBackgroundColor) : Color.clear)

@@ -26,7 +26,7 @@ struct CaffeinateManualView: View {
             ManualSectionHeader(number: 2, title: L("Interface"))
             ManualBulletList(items: [
                 .init(L("Duration: a horizontal strip of duration buttons. The selected button is highlighted; the strip scrolls sideways when there are many durations.")),
-                .init(L("Actions: three anti-sleep modes, each with an icon and a selection checkmark.")),
+                .init(L("Actions: two anti-sleep modes with a selection checkmark, plus one separate instant-action button below them.")),
                 .init(L("Settings page: under Anti-Sleep Durations, the built-in durations, the add-custom field, and the reset button.")),
             ])
             interfaceFigure
@@ -36,6 +36,7 @@ struct CaffeinateManualView: View {
                 .init(L("Open the menu-bar popover and pick a duration under Duration.")),
                 .init(L("Choose a mode under Actions to start anti-sleep; the checkmark marks the active mode.")),
                 .init(L("Click the active mode again to stop anti-sleep and release the power assertion.")),
+                .init(L("The instant-action button below the modes turns the display off right away and keeps the system awake; it is an action, not a third mode.")),
                 .init(L("To change the duration while anti-sleep is running, pick another duration; the timer restarts with the new value.")),
             ])
 
@@ -43,10 +44,15 @@ struct CaffeinateManualView: View {
             ManualBulletList(items: [
                 .init(L("Keep Awake & Display On: prevents both system sleep and display sleep. Use it for presentations or long reading sessions.")),
                 .init(L("Keep Awake & Allow Display Sleep: prevents system sleep but lets the display turn off. Use it when you only need the computer to keep running.")),
-                .init(L("Keep Awake & Turn Off Display Now: turns the display off immediately and keeps the system awake.")),
             ])
 
-            ManualSectionHeader(number: 5, title: L("Custom Durations"))
+            ManualSectionHeader(number: 5, title: L("Instant Action"))
+            ManualBulletList(items: [
+                .init(L("Keep Awake & Turn Off Display Now: an action, not a mode. It turns the display off immediately and keeps the system awake.")),
+                .init(L("After it runs, the session keeps the same behaviour as Keep Awake & Allow Display Sleep, so that mode is the one marked with a checkmark.")),
+            ])
+
+            ManualSectionHeader(number: 6, title: L("Custom Durations"))
             ManualStepList(items: [
                 .init(L("Open Settings and go to the Caffeinate page.")),
                 .init(L("Enter a positive number of minutes in the Add Custom field and click the add button, or press Return.")),
@@ -55,7 +61,7 @@ struct CaffeinateManualView: View {
                 .init(L("Click Reset to restore the built-in durations and drop all custom ones.")),
             ])
 
-            ManualSectionHeader(number: 6, title: L("Notes"))
+            ManualSectionHeader(number: 7, title: L("Notes"))
             ManualBulletList(items: [
                 .init(L("The Indefinite duration keeps the system awake until you stop it manually.")),
                 .init(L("When anti-sleep is running, the system power assertion and the timer are released automatically at the end of the selected duration.")),
@@ -112,10 +118,10 @@ struct CaffeinateManualView: View {
                         .font(.system(size: 9))
                         .foregroundStyle(theme.textSecondary)
 
+                    // 模式单选组：两项，右侧带对勾
                     ForEach([
                         (L("Keep Awake & Display On"), "sun.max.fill"),
                         (L("Keep Awake & Allow Display Sleep"), "moon.fill"),
-                        (L("Keep Awake & Turn Off Display Now"), "power"),
                     ], id: \.0) { title, icon in
                         HStack(spacing: 7) {
                             Image(systemName: icon)
@@ -130,6 +136,24 @@ struct CaffeinateManualView: View {
                                 .font(.system(size: 9, weight: .semibold))
                                 .foregroundStyle(theme.primary)
                         }
+                    }
+
+                    // 即时动作组：独立成组，右侧是箭头而不是对勾
+                    Divider()
+                        .padding(.vertical, 3)
+
+                    HStack(spacing: 7) {
+                        Image(systemName: "power")
+                            .font(.system(size: 10))
+                            .foregroundStyle(theme.textSecondary)
+                            .frame(width: 14)
+                        Text(L("Keep Awake & Turn Off Display Now"))
+                            .font(.system(size: 10))
+                            .foregroundStyle(theme.textPrimary)
+                        Spacer()
+                        Image(systemName: "arrow.right")
+                            .font(.system(size: 9, weight: .semibold))
+                            .foregroundStyle(theme.textSecondary)
                     }
                 }
             }
