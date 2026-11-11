@@ -4,8 +4,8 @@
 
 「防休眠（Caffeinate）」插件的共享远程包，由 Lumi、Wakey 等 CofficLab 同族应用装配。
 
-> 本插件不依赖任何其它插件：状态栏、设置页与说明书均通过 Provider 契约接入，
-> 电源断言直接经由 IOKit 创建。
+> 本插件不依赖任何其它插件：状态栏、设置页、说明书、Logo 高亮与持久化均通过
+> Provider 契约接入，电源断言直接经由 IOKit 创建。
 
 ## 包信息
 
@@ -20,13 +20,28 @@
 - 基于 IOKit 电源断言的防休眠会话（仅系统 / 系统与显示器）。
 - 「立即关闭显示器」操作仅在系统断言创建成功后执行。
 - 设置页自定义时长管理，跨启动持久化。
+- 4 个 Agent 工具（`caffeinate_activate`、`caffeinate_deactivate`、
+  `caffeinate_status`、`caffeinate_turn_off_display`）。
+- 防休眠激活期间高亮状态栏 Logo。
+- 持久化的默认启动模式，下次启动自动生效。
 - 说明书条目贡献。
+
+## 宿主能力
+
+插件在启动时从内核解析三个可选 Provider。宿主未提供时插件仍然可用，
+只是缺少对应效果。
+
+| Provider | 提供时的效果 | 缺失时的效果 |
+|---|---|---|
+| `StorageProviding` | 在插件专属数据目录下持久化默认模式与自定义时长 | 偏好不跨启动保留 |
+| `LogoProviding` | 防休眠激活期间高亮状态栏 Logo | 无 Logo 高亮 |
+| `ToolManagerProviding` | 注册 4 个 Agent 工具 | Agent 侧不提供这些工具 |
 
 ## 依赖与接入
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/lumi-softworks/LumiPluginCaffeinate.git", from: "1.0.0")
+    .package(url: "https://github.com/lumi-softworks/LumiPluginCaffeinate.git", from: "1.1.0")
 ]
 ```
 

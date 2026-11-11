@@ -1,8 +1,12 @@
 import KernelCore
+import KitAgentTool
 import OSLog
 import ProviderDocsView
+import ProviderLogo
 import ProviderMenuBar
 import ProviderSettingView
+import ProviderStorage
+import ProviderToolManager
 import SwiftUI
 
 /// Anti-sleep plugin: prevents system sleep, supports scheduled and manual control.
@@ -44,11 +48,25 @@ public final class PluginCaffeinate: SuperPlugin {
     }
 
     public func onBoot(kernel: KernelCoreContainer) throws {
+        // 绑定宿主能力：Logo 高亮 + 插件数据目录（默认模式持久化）。
+        CaffeinateManager.shared.configure(
+            storage: kernel.resolveProvider((any StorageProviding).self),
+            logo: kernel.resolveProvider((any LogoProviding).self),
+            pluginID: id
+        )
+
         // 说明书条目：设置页「通用 → 说明书」中展示
         kernel.resolveProvider((any DocsViewProviding).self)?
             .addManual(DocsEntry(id: id, name: metadata.name) {
                 CaffeinateManualView()
             })
+
+        // 注册 Agent 工具。
+        if let toolManager = kernel.resolveProvider((any ToolManagerProviding).self) {
+            for tool in Self.agentTools {
+                toolManager.add(tool, pluginID: id)
+            }
+        }
 
         try contributeMenuBar(to: kernel)
 
@@ -62,6 +80,9 @@ public final class PluginCaffeinate: SuperPlugin {
                     detail: { CaffeinateSettingsView(configuration: self.configuration) }
                 )
             ])
+
+        // 用户配置过默认模式时，启动即按下该模式。
+        CaffeinateManager.shared.applyPersistedDefaultModeIfNeeded()
     }
 
     public func onEnable(kernel: KernelCoreContainer) async throws {
@@ -71,6 +92,13 @@ public final class PluginCaffeinate: SuperPlugin {
     public func onShutdown(kernel: KernelCoreContainer) throws {
         kernel.resolveProvider((any DocsViewProviding).self)?.removeEntries(id: id)
         kernel.resolveProvider((any SettingViewProviding).self)?.removeEntries(ids: [id])
+
+        // 撤回 Agent 工具
+        if let toolManager = kernel.resolveProvider((any ToolManagerProviding).self) {
+            for tool in Self.agentTools {
+                toolManager.remove(id: tool.name)
+            }
+        }
 
         // 清理：卸载插件时若仍处于防休眠状态则释放电源断言与定时器
         if CaffeinateManager.shared.isActive {
@@ -93,4 +121,17 @@ public final class PluginCaffeinate: SuperPlugin {
             CaffeinatePopupView(configuration: self.configuration)
         })
     }
+
+    // MARK: - Agent Tools
+
+    /// 插件贡献的 Agent 工具。
+    ///
+    /// 工具与 UI 共用同一个 `CaffeinateManager`，因此 Agent 触发的防休眠
+    /// 会同步反映到菜单栏弹窗与 Logo 高亮上。
+    public static let agentTools: [any SuperAgentTool] = [
+        CaffeinateActivateTool(),
+        CaffeinateDeactivateTool(),
+        CaffeinateStatusTool(),
+        CaffeinateTurnOffDisplayTool(),
+    ]
 }

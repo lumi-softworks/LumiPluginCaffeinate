@@ -4,7 +4,7 @@
 
 Shared remote package for the "Caffeinate" (anti-sleep) plugin, assembled by CofficLab sibling apps such as Lumi and Wakey.
 
-> This plugin depends on no other plugins. The menu bar, settings, and docs are all accessed through Provider contracts; power assertions are created directly through IOKit.
+> This plugin depends on no other plugins. The menu bar, settings, docs, logo highlight, and persistence are all accessed through Provider contracts; power assertions are created directly through IOKit.
 
 ## Package
 
@@ -19,13 +19,26 @@ Shared remote package for the "Caffeinate" (anti-sleep) plugin, assembled by Cof
 - Anti-sleep sessions backed by IOKit power assertions (system, system + display).
 - Immediate display-off action that only runs after the system assertion succeeds.
 - Custom duration management on the settings page, persisted across launches.
+- Four Agent tools (`caffeinate_activate`, `caffeinate_deactivate`, `caffeinate_status`, `caffeinate_turn_off_display`).
+- Logo highlight while anti-sleep is active.
+- Persisted default mode, applied on the next launch.
 - User manual contribution.
+
+## Host Capabilities
+
+The plugin resolves three optional providers from the kernel at boot. Hosts that do not provide one still get a working plugin — only the corresponding effect is missing.
+
+| Provider | Effect when present | Effect when absent |
+|---|---|---|
+| `StorageProviding` | Persists the default mode and custom durations under the plugin's own data directory | Preferences are not persisted across launches |
+| `LogoProviding` | Highlights the status-bar logo while anti-sleep is active | No logo highlight |
+| `ToolManagerProviding` | Registers the four Agent tools | The tools are not offered to the Agent |
 
 ## Dependencies and Integration
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/lumi-softworks/LumiPluginCaffeinate.git", from: "1.0.0")
+    .package(url: "https://github.com/lumi-softworks/LumiPluginCaffeinate.git", from: "1.1.0")
 ]
 ```
 

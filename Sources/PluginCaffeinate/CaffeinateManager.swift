@@ -3,6 +3,8 @@ import IOKit.pwr_mgt
 import LumiLoggingKit
 import Observation
 import OSLog
+import ProviderLogo
+import ProviderStorage
 import SwiftUI
 
 /// Anti-sleep manager: responsible for managing system power states
@@ -25,6 +27,21 @@ class CaffeinateManager: SuperLog {
     /// Currently active action type, nil if not active
     private(set) var activeAction: QuickActionType?
 
+    /// Whether the current activation was requested with the immediate display-off action.
+    ///
+    /// 它表达的是「本次会话由『关屏动作』发起」，而不是「屏幕现在是关着的」——
+    /// 屏幕过一会儿被系统点亮后，这个标志依然为真。
+    ///
+    /// 正因为它是一个用户无法观察的状态，弹窗里**不**用它渲染勾选标记：
+    /// 勾选只反映前两项真正的运行模式。
+    private(set) var isDisplayOffRequested: Bool = false
+
+    /// 用户配置的默认启动模式（持久化）。
+    ///
+    /// 实际生效还需要宿主在激活时调用 `applyPersistedDefaultModeIfNeeded()`，
+    /// 它会读取 LocalStore 并在未激活时按下一次模式。
+    private(set) var persistedDefaultMode: SleepMode?
+
     /// Duration selected by the user (seconds), used for next activation or updating current activation
     var selectedDuration: TimeInterval = 0
 
@@ -45,6 +62,15 @@ class CaffeinateManager: SuperLog {
     /// 生产环境为系统实现，测试可注入可控实现。
     private let environment: any CaffeinateEnvironment
 
+    /// 宿主提供的 Logo 能力，用于在防休眠激活时高亮状态栏 Logo。
+    private weak var logo: (any LogoProviding)?
+
+    /// 宿主提供的存储能力，用于持久化插件配置。
+    private weak var storage: (any StorageProviding)?
+
+    /// 插件 ID，决定插件数据目录。宿主注入，保证与历史数据位置一致。
+    private var pluginID: String = CaffeinateConfiguration.defaultPluginID
+
     // MARK: - Custom Intervals Support
 
     private let customDurationsKey = "CaffeinateCustomDurations"
@@ -60,6 +86,72 @@ class CaffeinateManager: SuperLog {
             os_log("\(self.t)CaffeinateManager initialized")
         }
         loadAvailableDurations()
+    }
+
+    // MARK: - Host Wiring
+
+    /// 绑定宿主能力：Logo 高亮与插件数据目录。
+    ///
+    /// 宿主在 `onBoot` 时调用一次。传入的 provider 可以为 nil —— 此时插件
+    /// 仍然可用，只是没有 Logo 高亮、配置也无法持久化。
+    func configure(
+        storage: (any StorageProviding)?,
+        logo: (any LogoProviding)?,
+        pluginID: String
+    ) {
+        self.storage = storage
+        self.logo = logo
+        self.pluginID = pluginID
+
+        CaffeinateLocalStore.shared.configure(storage: storage, pluginID: pluginID)
+        reloadPersistedDefaultMode()
+        synchronizeLogoHighlight()
+    }
+
+    /// 从 LocalStore 重新加载用户配置的默认模式。
+    func reloadPersistedDefaultMode() {
+        if let raw = CaffeinateLocalStore.shared.defaultModeRaw,
+           let stored = SleepMode(rawValue: raw) {
+            persistedDefaultMode = stored
+        } else {
+            persistedDefaultMode = nil
+        }
+    }
+
+    /// 写入新的默认启动模式并更新内存中的值。
+    ///
+    /// - Parameter mode: 要持久化的模式；传 `nil` 表示清除偏好（恢复随用随选）。
+    @discardableResult
+    func setPersistedDefaultMode(_ mode: SleepMode?) -> Bool {
+        let success = CaffeinateLocalStore.shared.setDefaultModeRaw(mode?.rawValue)
+        if success {
+            persistedDefaultMode = mode
+            if Self.verbose {
+                os_log("\(self.t)Persisted default mode updated to: \(mode?.rawValue ?? "nil")")
+            }
+        }
+        return success
+    }
+
+    /// 若用户配置了默认模式且当前未激活，则按下该模式。
+    ///
+    /// 宿主在启动时调用一次，让「开机即防休眠」这类偏好自动生效。
+    @discardableResult
+    func applyPersistedDefaultModeIfNeeded() -> Bool {
+        guard !isActive, let persistedDefaultMode else { return false }
+        return activate(mode: persistedDefaultMode, duration: selectedDuration)
+    }
+
+    private func synchronizeLogoHighlight() {
+        guard let logo else { return }
+        guard logo.isLogoHighlighted != isActive else { return }
+        logo.setLogoHighlighted(isActive)
+    }
+
+    private func updateLogoHighlight(_ highlighted: Bool) {
+        guard let logo else { return }
+        guard logo.isLogoHighlighted != highlighted else { return }
+        logo.setLogoHighlighted(highlighted)
     }
 
     // MARK: - Public Methods
@@ -91,6 +183,7 @@ class CaffeinateManager: SuperLog {
 
         // activeAction / selectedDuration 已由 activate 成功路径写入。
         turnOffDisplay()
+        isDisplayOffRequested = true
     }
 
     /// 切换到指定的防休眠动作。
@@ -134,6 +227,7 @@ class CaffeinateManager: SuperLog {
         }
 
         self.mode = mode
+        isDisplayOffRequested = false
         let reason = String(localized: "Anti-sleep mode enabled via Wakey", table: "Caffeinate", bundle: .module, comment: "Reason shown in system power assertions when anti-sleep is active") as NSString
 
         let systemResult = environment.createAssertion(kind: .system, reason: reason as String)
@@ -153,6 +247,7 @@ class CaffeinateManager: SuperLog {
             startTime = Date()
             self.duration = duration
             self.selectedDuration = duration
+            updateLogoHighlight(true)
 
             if Self.verbose {
                 os_log("\(self.t)Caffeinate activated successfully with duration: \(duration)s")
@@ -206,8 +301,10 @@ class CaffeinateManager: SuperLog {
         // 2. 更新状态
         isActive = false
         activeAction = nil
+        isDisplayOffRequested = false
         startTime = nil
         duration = 0
+        updateLogoHighlight(false)
 
         // 3. 停止定时器
         environment.cancelScheduledTimer()
