@@ -55,11 +55,15 @@ public final class PluginCaffeinate: SuperPlugin {
             pluginID: id
         )
 
-        // 说明书条目：设置页「通用 → 说明书」中展示
-        kernel.resolveProvider((any DocsViewProviding).self)?
-            .addManual(DocsEntry(id: id, name: metadata.name) {
+        // 说明书与关于条目：设置页「通用 → 说明书 / 关于」中展示
+        if let docs = kernel.resolveProvider((any DocsViewProviding).self) {
+            docs.addManual(DocsEntry(id: id, name: metadata.name) {
                 CaffeinateManualView()
             })
+            docs.addAbout(DocsEntry(id: id, name: metadata.name) {
+                CaffeinateAboutView()
+            })
+        }
 
         // 注册 Agent 工具。
         if let toolManager = kernel.resolveProvider((any ToolManagerProviding).self) {
@@ -90,6 +94,7 @@ public final class PluginCaffeinate: SuperPlugin {
     }
 
     public func onShutdown(kernel: KernelCoreContainer) throws {
+        // `removeEntries(id:)` 同时撤回同一 id 的说明书与关于条目。
         kernel.resolveProvider((any DocsViewProviding).self)?.removeEntries(id: id)
         kernel.resolveProvider((any SettingViewProviding).self)?.removeEntries(ids: [id])
 

@@ -1569,6 +1569,834 @@
           }
         }
       }
+    },
+    "macOS 14.0 或更高版本": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS 14.0 或更高版本"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS 14.0 or later"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS 14.0 或更新版本"
+          }
+        }
+      }
+    },
+    "一直保持唤醒,直到你手动关闭。适合不确定时长的长任务。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一直保持唤醒,直到你手动关闭。适合不确定时长的长任务。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stay awake until you stop it. Best for long tasks of uncertain length."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一直保持喚醒，直到你手動關閉。適合不確定時長的長任務。"
+          }
+        }
+      }
+    },
+    "一键切换": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一键切换"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "one-click switch"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一鍵切換"
+          }
+        }
+      }
+    },
+    "三种运行模式": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "三种运行模式"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Three run modes"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "三種運行模式"
+          }
+        }
+      }
+    },
+    "下载、编译、渲染或演示,系统始终保持唤醒。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下载、编译、渲染或演示,系统始终保持唤醒。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whether you are downloading, compiling, rendering, or presenting, the system stays awake."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下載、編譯、算繪或演示，系統始終保持喚醒。"
+          }
+        }
+      }
+    },
+    "下载期间保持唤醒,避免中断重试。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下载期间保持唤醒,避免中断重试。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stay awake during the download so nothing has to restart."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下載期間保持喚醒，避免中斷重試。"
+          }
+        }
+      }
+    },
+    "任何时候你都不希望 Mac 突然睡去": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "任何时候你都不希望 Mac 突然睡去"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For whenever you would rather the Mac did not fall asleep"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "任何時候你都不希望 Mac 突然睡去"
+          }
+        }
+      }
+    },
+    "创建电源断言": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建电源断言"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create a power assertion"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立電源斷言"
+          }
+        }
+      }
+    },
+    "可选关闭屏幕": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可选关闭屏幕"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optionally turn the display off"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可選關閉螢幕"
+          }
+        }
+      }
+    },
+    "后台服务": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "后台服务"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Background services"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "背景服務"
+          }
+        }
+      }
+    },
+    "大文件下载": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大文件下载"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Large downloads"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大檔下載"
+          }
+        }
+      }
+    },
+    "定时模式": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "定时模式"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timed"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "定時模式"
+          }
+        }
+      }
+    },
+    "定时模式到点自动释放断言;无限模式由你手动解除。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "定时模式到点自动释放断言;无限模式由你手动解除。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The timed mode releases the assertion when the clock runs out; the indefinite mode is up to you."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "定時模式到點自動釋放斷言；無限模式由你手動解除。"
+          }
+        }
+      }
+    },
+    "工作原理": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "工作原理"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How it works"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "工作原理"
+          }
+        }
+      }
+    },
+    "常见场景": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "常见场景"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Common scenarios"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "常見場景"
+          }
+        }
+      }
+    },
+    "底层基于系统电源断言,安全且无副作用": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "底层基于系统电源断言,安全且无副作用"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Built on the system power assertion — safe and side-effect free"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "底層基於系統電源斷言，安全且無副作用"
+          }
+        }
+      }
+    },
+    "息屏模式下显示休眠,但系统继续运行。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "息屏模式下显示休眠,但系统继续运行。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In display-off mode the screen sleeps while the system keeps running."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "息屏模式下顯示休眠，但系統繼續執行。"
+          }
+        }
+      }
+    },
+    "息屏运行": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "息屏运行"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Display off"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "息屏運行"
+          }
+        }
+      }
+    },
+    "投屏或演示时屏幕不熄灭。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "投屏或演示时屏幕不熄灭。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The screen stays on while you share or present."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "投屏或演示時螢幕不熄滅。"
+          }
+        }
+      }
+    },
+    "按场景选择最适合的唤醒方式": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按场景选择最适合的唤醒方式"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pick the way to stay awake that fits the situation"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按場景選擇最適合的喚醒方式"
+          }
+        }
+      }
+    },
+    "无限模式": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无限模式"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indefinite"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無限模式"
+          }
+        }
+      }
+    },
+    "无需安装任何附加组件": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无需安装任何附加组件"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No additional components to install"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無需安裝任何附加元件"
+          }
+        }
+      }
+    },
+    "演示与会议": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "演示与会议"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Presentations and meetings"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "演示與會議"
+          }
+        }
+      }
+    },
+    "环境要求": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "环境要求"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Requirements"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "環境要求"
+          }
+        }
+      }
+    },
+    "系统保持唤醒的同时关闭屏幕,兼顾任务与省电。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系统保持唤醒的同时关闭屏幕,兼顾任务与省电。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close the display while the system stays awake, balancing work and power."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系統保持喚醒的同時關閉螢幕，兼顧任務與省電。"
+          }
+        }
+      }
+    },
+    "系统电源管理权限(无需额外授权)": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系统电源管理权限(无需额外授权)"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System power management permission (no extra authorization needed)"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系統電源管理權限（無需額外授權）"
+          }
+        }
+      }
+    },
+    "编码、渲染耗时漫长,全程不掉线。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "编码、渲染耗时漫长,全程不掉线。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encoding and rendering take a long time — stay connected the whole way."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "編碼、算繪耗時漫長，全程不掉線。"
+          }
+        }
+      }
+    },
+    "自动收尾": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动收尾"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wrap up automatically"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動收尾"
+          }
+        }
+      }
+    },
+    "视频处理": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "视频处理"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Video processing"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "影片處理"
+          }
+        }
+      }
+    },
+    "让 Mac 在长时间任务中保持唤醒——下载、渲染、演示都不再被打断。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "让 Mac 在长时间任务中保持唤醒——下载、渲染、演示都不再被打断。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep your Mac awake through long tasks — downloads, renders, and presentations no longer get interrupted."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "讓 Mac 在長時間任務中保持喚醒——下載、算繪、演示都不再被打斷。"
+          }
+        }
+      }
+    },
+    "设定几分钟到几小时,到点自动解除唤醒。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设定几分钟到几小时,到点自动解除唤醒。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set a few minutes or hours; the wake lock lifts automatically when time is up."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定幾分鐘到幾小時，到點自動解除喚醒。"
+          }
+        }
+      }
+    },
+    "运行你的任务": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "运行你的任务"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Run your task"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "執行你的任務"
+          }
+        }
+      }
+    },
+    "运行本地服务或长任务不被打断。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "运行本地服务或长任务不被打断。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep local services and long jobs running without interruption."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "執行本機服務或長任務不被打斷。"
+          }
+        }
+      }
+    },
+    "运行模式": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "运行模式"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "run modes"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "運行模式"
+          }
+        }
+      }
+    },
+    "通过 IOKit 向系统注册 power assertion,阻止进入睡眠。": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通过 IOKit 向系统注册 power assertion,阻止进入睡眠。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registers a power assertion with the system through IOKit to keep it from sleeping."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "透過 IOKit 向系統註冊 power assertion，阻止進入睡眠。"
+          }
+        }
+      }
+    },
+    "额外配置": {
+      "comment": "",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "额外配置"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "extra configuration"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "額外設定"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

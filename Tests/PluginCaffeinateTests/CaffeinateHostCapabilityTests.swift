@@ -2,6 +2,7 @@ import Foundation
 import IOKit.pwr_mgt
 import KernelCore
 import KitAgentTool
+import ProviderDocsView
 import ProviderLogo
 import ProviderStorage
 import ProviderToolManager
@@ -236,6 +237,19 @@ struct CaffeinateHostCapabilityTests {
         try kernel.stop()
 
         #expect(toolManager.allTools().isEmpty)
+    }
+
+    @Test("onBoot 贡献说明书与关于两个条目")
+    func onBootContributesManualAndAbout() throws {
+        let kernel = KernelCoreContainer()
+        let docs = DefaultDocsViewProviding()
+        try kernel.registerProvider((any DocsViewProviding).self, docs)
+
+        let plugin = PluginCaffeinate()
+        try kernel.start(plugins: [plugin])
+
+        #expect(docs.manualEntries.contains { $0.id == plugin.id })
+        #expect(docs.aboutEntries.contains { $0.id == plugin.id })
     }
 
     @Test("工具的名称与 schema 保持稳定")
