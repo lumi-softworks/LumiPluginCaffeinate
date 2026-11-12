@@ -30,6 +30,33 @@ struct PluginCaffeinateLifecycleTests {
         #expect(popups.popupItems.count == 1)
     }
 
+    /// 防休眠是用户最常从菜单栏触发的能力，弹窗应排在弹出菜单最前。
+    ///
+    /// 这里的呈现权重与插件**启动顺序**刻意解耦：启动顺序受依赖关系约束，
+    /// 不能为了视觉排序调整；而弹窗位置是纯呈现诉求。
+    @Test("弹窗排在其他插件的弹窗之前")
+    func popupIsOrderedBeforeOtherPlugins() throws {
+        let kernel = makeKernel()
+        let popups = DefaultMenuBarProviding()
+        try kernel.registerProvider(MenuBarProviding.self, popups)
+
+        // 模拟一个启动顺序更早、但呈现权重更大的其它插件弹窗。
+        popups.addPopup(MenuBarContribution(
+            id: "OtherPlugin.popup",
+            title: "Other",
+            order: 200,
+            ownerPluginID: "OtherPlugin"
+        ) {
+            Text("Other")
+        })
+
+        let plugin = PluginCaffeinate()
+        try kernel.start(plugins: [plugin])
+
+        #expect(popups.popupItems.first?.id == "\(plugin.id).popup")
+        #expect(popups.popupItems.first?.order == PluginCaffeinate.popupOrder)
+    }
+
     @Test("onBoot 注册设置入口")
     func onBootRegistersSettingEntry() throws {
         let kernel = makeKernel()

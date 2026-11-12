@@ -25,6 +25,14 @@ public final class PluginCaffeinate: SuperPlugin {
     public let order: Int
     public let metadata: PluginMetadata
 
+    /// 菜单栏弹窗的呈现权重。
+    ///
+    /// 与插件的**启动顺序**（`order`）刻意解耦：启动顺序受依赖关系约束，
+    /// 不能为了视觉排序调整；而弹窗在弹出菜单里的位置是纯呈现诉求。
+    ///
+    /// 防休眠是用户最常从菜单栏触发的能力，默认排在弹出菜单最前。
+    public static let popupOrder = 0
+
     /// - Parameters:
     ///   - configuration: 品牌配置。宿主必须传入自己的历史 id，
     ///     否则会丢失用户已保存的启用状态与插件专属数据目录。
@@ -120,7 +128,7 @@ public final class PluginCaffeinate: SuperPlugin {
         menuBar.addPopup(MenuBarContribution(
             id: "\(id).popup",
             title: metadata.name,
-            order: order,
+            order: Self.popupOrder,
             ownerPluginID: id
         ) {
             CaffeinatePopupView(configuration: self.configuration)
