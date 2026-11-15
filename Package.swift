@@ -18,7 +18,7 @@ let package = Package(
         .package(url: "https://github.com/lumi-softworks/LumiUI.git", from: "1.13.1"),
         .package(url: "https://github.com/lumi-softworks/LumiProviders.git", from: "1.22.0"),
         .package(url: "https://github.com/lumi-softworks/LumiKitAgentTool.git", from: "1.0.0"),
-        .package(url: "https://github.com/lumi-softworks/ProviderToolManager.git", from: "1.0.0")
+        .package(url: "https://github.com/lumi-softworks/LumiProviderToolManager.git", from: "1.0.2")
     ],
     targets: [
         .target(
@@ -32,7 +32,7 @@ let package = Package(
                 .product(name: "ProviderLogo", package: "LumiProviders"),
                 .product(name: "ProviderStorage", package: "LumiProviders"),
                 .product(name: "KitAgentTool", package: "LumiKitAgentTool"),
-                .product(name: "ProviderToolManager", package: "ProviderToolManager"),
+                .product(name: "ProviderToolManager", package: "LumiProviderToolManager"),
                 .product(name: "LumiUI", package: "LumiUI")
             ],
             path: "Sources/PluginCaffeinate",
@@ -49,7 +49,7 @@ let package = Package(
                 .product(name: "ProviderLogo", package: "LumiProviders"),
                 .product(name: "ProviderStorage", package: "LumiProviders"),
                 .product(name: "KitAgentTool", package: "LumiKitAgentTool"),
-                .product(name: "ProviderToolManager", package: "ProviderToolManager")
+                .product(name: "ProviderToolManager", package: "LumiProviderToolManager")
             ],
             path: "Tests/PluginCaffeinateTests"
         )
