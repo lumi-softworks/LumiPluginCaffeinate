@@ -1,6 +1,8 @@
 import Foundation
-import IOKit.pwr_mgt
 import OSLog
+#if os(macOS)
+import IOKit.pwr_mgt
+#endif
 
 /// 防休眠所需的系统能力抽象。
 ///
@@ -48,19 +50,19 @@ enum CaffeinateAssertionKind: Equatable {
 
 /// 电源断言创建结果。
 struct CaffeinateAssertionResult {
-    /// IOKit 返回码。
-    let code: IOReturn
+    /// IOKit 返回码（kern_return_t，成功为 0）。
+    let code: Int32
 
     /// 断言 ID；创建失败时为 0。
     let id: UInt32
 
-    init(code: IOReturn, id: UInt32 = 0) {
+    init(code: Int32, id: UInt32 = 0) {
         self.code = code
         self.id = id
     }
 
     /// 是否创建成功。
-    var isSuccess: Bool { code == kIOReturnSuccess }
+    var isSuccess: Bool { code == 0 }
 }
 
 /// 生产环境实现：直接使用系统 API，行为与抽象前一致。
@@ -72,6 +74,7 @@ final class SystemCaffeinateEnvironment: CaffeinateEnvironment {
         kind: CaffeinateAssertionKind,
         reason: String
     ) -> CaffeinateAssertionResult {
+        #if os(macOS)
         var assertionID: IOPMAssertionID = 0
         let type: CFString = kind == .system
             ? kIOPMAssertionTypePreventUserIdleSystemSleep as CFString
@@ -82,14 +85,22 @@ final class SystemCaffeinateEnvironment: CaffeinateEnvironment {
             reason as CFString,
             &assertionID
         )
-        return CaffeinateAssertionResult(code: code, id: assertionID)
+        return CaffeinateAssertionResult(code: Int32(code), id: assertionID)
+        #else
+        // iOS 没有 IOKit 电源断言能力：第三方 App 无法阻止系统休眠，
+        // 桩实现固定失败，插件在 iOS 上不会被宿主装配。
+        return CaffeinateAssertionResult(code: 1)
+        #endif
     }
 
     func releaseAssertion(id: UInt32) {
+        #if os(macOS)
         IOPMAssertionRelease(IOPMAssertionID(id))
+        #endif
     }
 
     func turnOffDisplay() {
+        #if os(macOS)
         let task = Process()
         task.launchPath = "/usr/bin/pmset"
         task.arguments = ["displaysleepnow"]
@@ -98,6 +109,7 @@ final class SystemCaffeinateEnvironment: CaffeinateEnvironment {
         } catch {
             os_log(.error, "Failed to turn off display: \(error.localizedDescription)")
         }
+        #endif
     }
 
     func scheduleTimer(after delay: TimeInterval, handler: @escaping @MainActor () -> Void) {

@@ -1,5 +1,4 @@
 import Foundation
-import IOKit.pwr_mgt
 import LumiLoggingKit
 import Observation
 import OSLog
@@ -233,7 +232,7 @@ class CaffeinateManager: SuperLog {
         let systemResult = environment.createAssertion(kind: .system, reason: reason as String)
         assertionID = systemResult.id
 
-        var displayResult = CaffeinateAssertionResult(code: kIOReturnSuccess)
+        var displayResult = CaffeinateAssertionResult(code: 0)
         if mode == .systemAndDisplay {
             displayResult = environment.createAssertion(kind: .display, reason: reason as String)
             displayAssertionID = displayResult.id

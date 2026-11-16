@@ -181,11 +181,21 @@ private struct QuickActionButton: View {
         .accessibilityIdentifier(identifier)
         .background(
             Rectangle()
-                .fill(isHovering ? Color(nsColor: .selectedContentBackgroundColor) : Color.clear)
+                .fill(isHovering ? hoverFillColor : Color.clear)
         )
         .onHover { hovering in
             isHovering = hovering
         }
+    }
+
+    /// 悬停高亮色：macOS 沿用系统选中色；iOS 没有 NSColor，用强调色淡化替代
+    /// （该插件未在 iOS 装配，仅为共享包在 iOS 目标下可编译）。
+    private var hoverFillColor: Color {
+        #if os(macOS)
+        return Color(nsColor: .selectedContentBackgroundColor)
+        #else
+        return Color.accentColor.opacity(0.18)
+        #endif
     }
 }
 
