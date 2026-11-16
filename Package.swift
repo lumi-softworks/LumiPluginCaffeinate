@@ -16,7 +16,7 @@ let package = Package(
         .package(url: "https://github.com/lumi-softworks/LumiKernel.git", from: "1.1.0"),
         .package(url: "https://github.com/lumi-softworks/LumiSettings.git", from: "1.1.0"),
         .package(url: "https://github.com/lumi-softworks/LumiUI.git", from: "1.13.1"),
-        .package(url: "https://github.com/lumi-softworks/LumiProviders.git", from: "1.22.0"),
+        .package(url: "https://github.com/lumi-softworks/LumiProviders.git", from: "1.26.0"),
         .package(url: "https://github.com/lumi-softworks/LumiKitAgentTool.git", from: "1.0.0"),
         .package(url: "https://github.com/lumi-softworks/LumiProviderToolManager.git", from: "1.0.2")
     ],
