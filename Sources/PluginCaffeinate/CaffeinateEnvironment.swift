@@ -22,10 +22,16 @@ protocol CaffeinateEnvironment: AnyObject {
     ) -> CaffeinateAssertionResult
 
     /// 释放电源断言。
-    func releaseAssertion(id: UInt32)
+    ///
+    /// - Returns: IOKit 返回码，0 表示释放成功；非 0 表示断言仍在系统中
+    ///   生效，调用方不得宣称「已恢复正常休眠策略」。
+    func releaseAssertion(id: UInt32) -> Int32
 
     /// 立即关闭显示器。
-    func turnOffDisplay()
+    ///
+    /// - Returns: 关屏命令是否成功启动。`false` 表示屏幕并未真正关闭，
+    ///   调用方不得向用户宣称「屏幕已关闭」。
+    func turnOffDisplay() -> Bool
 
     /// 在指定延迟后触发回调（回调运行在主线程）。
     func scheduleTimer(after delay: TimeInterval, handler: @escaping @MainActor () -> Void)
@@ -93,22 +99,30 @@ final class SystemCaffeinateEnvironment: CaffeinateEnvironment {
         #endif
     }
 
-    func releaseAssertion(id: UInt32) {
+    func releaseAssertion(id: UInt32) -> Int32 {
         #if os(macOS)
-        IOPMAssertionRelease(IOPMAssertionID(id))
+        return IOPMAssertionRelease(IOPMAssertionID(id))
+        #else
+        // iOS 没有 IOKit 电源断言能力：桩实现视为已释放。
+        return 0
         #endif
     }
 
-    func turnOffDisplay() {
+    func turnOffDisplay() -> Bool {
         #if os(macOS)
         let task = Process()
         task.launchPath = "/usr/bin/pmset"
         task.arguments = ["displaysleepnow"]
         do {
             try task.run()
+            return true
         } catch {
             os_log(.error, "Failed to turn off display: \(error.localizedDescription)")
+            return false
         }
+        #else
+        // iOS 没有对应的关屏能力。
+        return false
         #endif
     }
 

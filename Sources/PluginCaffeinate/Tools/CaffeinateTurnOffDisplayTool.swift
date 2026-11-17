@@ -8,6 +8,9 @@ import Foundation
 struct CaffeinateTurnOffDisplayTool: SuperAgentTool {
     let name = "caffeinate_turn_off_display"
 
+    /// 测试注入点；生产路径使用共享 Manager。
+    var manager: CaffeinateManager? = nil
+
     func description(for language: LanguagePreference) -> String {
         "Prevent system sleep and immediately turn off the display. Useful for background tasks like downloads that need the system awake but don't require the screen. The system will stay awake while the display turns off to save power."
     }
@@ -39,7 +42,7 @@ struct CaffeinateTurnOffDisplayTool: SuperAgentTool {
                 ?? 0
         )
 
-        let manager = CaffeinateManager.shared
+        let manager = self.manager ?? CaffeinateManager.shared
 
         if manager.isActive {
             manager.deactivate()
@@ -56,6 +59,18 @@ struct CaffeinateTurnOffDisplayTool: SuperAgentTool {
             The system refused the power assertion, so the display was left on.
             The Mac may be managed by an MDM policy that forbids preventing
             sleep. Try again, or contact your administrator.
+            """
+        }
+
+        // 断言建立成功不等于屏幕真的黑了：`pmset` 启动失败时必须如实
+        // 报告，而不是宣称「屏幕已关闭」（#650）。
+        if manager.didLastDisplayTurnOffSucceed == false {
+            return """
+            ## Caffeinate Activation Partially Failed ❌
+
+            The power assertion was created, so the system will stay awake,
+            but the display turn-off command failed to launch and the screen
+            remains on. Use `caffeinate_status` to check the current state.
             """
         }
 

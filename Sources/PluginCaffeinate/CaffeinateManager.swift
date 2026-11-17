@@ -35,6 +35,13 @@ class CaffeinateManager: SuperLog {
     /// 勾选只反映前两项真正的运行模式。
     private(set) var isDisplayOffRequested: Bool = false
 
+    /// 最近一次「关屏」命令的实际执行结果。
+    ///
+    /// `nil` 表示本次会话尚未请求过关屏；`false` 表示电源断言虽已建立，
+    /// 但 `pmset` 启动失败、屏幕并未真正关闭。工具层据此如实报告失败
+    /// （#650），而不是想当然地宣称屏幕已经黑了。
+    private(set) var didLastDisplayTurnOffSucceed: Bool?
+
     /// 用户配置的默认启动模式（持久化）。
     ///
     /// 实际生效还需要宿主在激活时调用 `applyPersistedDefaultModeIfNeeded()`，
@@ -181,7 +188,7 @@ class CaffeinateManager: SuperLog {
         }
 
         // activeAction / selectedDuration 已由 activate 成功路径写入。
-        turnOffDisplay()
+        didLastDisplayTurnOffSucceed = turnOffDisplay()
         isDisplayOffRequested = true
     }
 
@@ -207,7 +214,8 @@ class CaffeinateManager: SuperLog {
     }
 
     /// 立即关闭显示器
-    private func turnOffDisplay() {
+    /// - Returns: 关屏命令是否成功启动
+    private func turnOffDisplay() -> Bool {
         environment.turnOffDisplay()
     }
 
@@ -227,6 +235,7 @@ class CaffeinateManager: SuperLog {
 
         self.mode = mode
         isDisplayOffRequested = false
+        didLastDisplayTurnOffSucceed = nil
         let reason = String(localized: "Anti-sleep mode enabled via Wakey", table: "Caffeinate", bundle: .module, comment: "Reason shown in system power assertions when anti-sleep is active") as NSString
 
         let systemResult = environment.createAssertion(kind: .system, reason: reason as String)
@@ -266,11 +275,17 @@ class CaffeinateManager: SuperLog {
                 os_log(.error, "\(self.t)Failed to create display sleep assertion: \(displayResult.code)")
             }
             if assertionID != 0 {
-                environment.releaseAssertion(id: assertionID)
+                let rollbackCode = environment.releaseAssertion(id: assertionID)
+                if rollbackCode != 0 {
+                    os_log(.error, "\(self.t)Failed to release system assertion during rollback: \(rollbackCode)")
+                }
                 assertionID = 0
             }
             if displayAssertionID != 0 {
-                environment.releaseAssertion(id: displayAssertionID)
+                let rollbackCode = environment.releaseAssertion(id: displayAssertionID)
+                if rollbackCode != 0 {
+                    os_log(.error, "\(self.t)Failed to release display assertion during rollback: \(rollbackCode)")
+                }
                 displayAssertionID = 0
             }
 
@@ -279,34 +294,55 @@ class CaffeinateManager: SuperLog {
     }
 
     /// 停止防休眠并清理资源
-    func deactivate() {
-        guard isActive else { return }
+    ///
+    /// - Returns: 断言是否全部释放成功。任一释放失败时断言在系统里仍然
+    ///   生效，会话必须保持活跃状态（#650）——此时宣称「已恢复正常休眠」
+    ///   会误导用户与 Agent；调用方可再次尝试。
+    @discardableResult
+    func deactivate() -> Bool {
+        guard isActive else { return true }
 
         if Self.verbose {
             os_log("\(self.t)Deactivating Caffeinate")
         }
 
-        // 1. 释放 IOKit 断言
+        // 1. 释放 IOKit 断言。先确认全部释放成功，再更新会话状态——
+        //    释放失败意味着断言还在系统里阻止休眠，状态不能翻转。
+        var releasedAll = true
         if assertionID != 0 {
-            environment.releaseAssertion(id: assertionID)
-            assertionID = 0
+            let code = environment.releaseAssertion(id: assertionID)
+            if code == 0 {
+                assertionID = 0
+            } else {
+                os_log(.error, "\(self.t)Failed to release system sleep assertion: \(code)")
+                releasedAll = false
+            }
         }
 
         if displayAssertionID != 0 {
-            environment.releaseAssertion(id: displayAssertionID)
-            displayAssertionID = 0
+            let code = environment.releaseAssertion(id: displayAssertionID)
+            if code == 0 {
+                displayAssertionID = 0
+            } else {
+                os_log(.error, "\(self.t)Failed to release display sleep assertion: \(code)")
+                releasedAll = false
+            }
         }
+
+        guard releasedAll else { return false }
 
         // 2. 更新状态
         isActive = false
         activeAction = nil
         isDisplayOffRequested = false
+        didLastDisplayTurnOffSucceed = nil
         startTime = nil
         duration = 0
         updateLogoHighlight(false)
 
         // 3. 停止定时器
         environment.cancelScheduledTimer()
+        return true
     }
 
     /// Toggle anti-sleep state

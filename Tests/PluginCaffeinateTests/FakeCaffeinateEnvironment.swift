@@ -40,6 +40,12 @@ final class FakeCaffeinateEnvironment: CaffeinateEnvironment {
     /// 显示器断言的返回结果。
     var displayAssertionResult = CaffeinateAssertionResult(code: kIOReturnSuccess, id: 202)
 
+    /// 释放断言时返回的 IOKit 返回码（0 = 成功，非 0 = 释放失败）。
+    var releaseResult: Int32 = 0
+
+    /// 关屏命令的结果。
+    var turnOffDisplayResult = true
+
     func createAssertion(
         kind: CaffeinateAssertionKind,
         reason: String
@@ -48,12 +54,14 @@ final class FakeCaffeinateEnvironment: CaffeinateEnvironment {
         return kind == .system ? systemAssertionResult : displayAssertionResult
     }
 
-    func releaseAssertion(id: UInt32) {
+    func releaseAssertion(id: UInt32) -> Int32 {
         releasedAssertionIDs.append(id)
+        return releaseResult
     }
 
-    func turnOffDisplay() {
+    func turnOffDisplay() -> Bool {
         turnOffDisplayCount += 1
+        return turnOffDisplayResult
     }
 
     func scheduleTimer(after delay: TimeInterval, handler: @escaping @MainActor () -> Void) {

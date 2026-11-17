@@ -7,6 +7,9 @@ import Foundation
 struct CaffeinateDeactivateTool: SuperAgentTool {
     let name = "caffeinate_deactivate"
 
+    /// 测试注入点；生产路径使用共享 Manager。
+    var manager: CaffeinateManager? = nil
+
     func description(for language: LanguagePreference) -> String {
         "Deactivate caffeinate and restore normal system sleep behavior. Releases all IOKit power assertions."
     }
@@ -21,25 +24,34 @@ struct CaffeinateDeactivateTool: SuperAgentTool {
         .low
     }
 
-    
+
     @MainActor
     func execute(arguments: [String: ToolArgument]) async throws -> String {
-        let manager = CaffeinateManager.shared
+        let manager = self.manager ?? CaffeinateManager.shared
 
         guard manager.isActive else {
             return """
             ## Caffeinate Status
-            
+
             Caffeinate is **not active**. No action needed.
             System is already following normal sleep policy.
             """
         }
 
-        manager.deactivate()
+        guard manager.deactivate() else {
+            // 释放失败时断言仍在系统里阻止休眠，不能宣称「已恢复」（#650）。
+            return """
+            ## Caffeinate Deactivation Failed ❌
+
+            The system refused to release the power assertion, so the Mac
+            may still be prevented from sleeping. Check `caffeinate_status`
+            and try `caffeinate_deactivate` again.
+            """
+        }
 
         return """
         ## Caffeinate Deactivated ✅
-        
+
         System sleep policy has been **restored to normal**.
         The system will now follow its default power management settings.
         """
