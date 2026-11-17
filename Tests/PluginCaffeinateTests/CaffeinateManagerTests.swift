@@ -545,4 +545,30 @@ struct CaffeinateManagerSwitchActionTests {
         #expect(manager.selectedDuration == 1800)
         #expect(manager.duration == 1800)
     }
+
+    /// 回归 #239（Lumi）：工具（caffeinate_activate）以未预设的时长发起定时
+    /// 激活后，弹窗读取的 `selectedDuration` 必须同步真实会话时长，且仅切换
+    /// 模式不得把定时会话变成永久——计时器要按同一时长重新排定。
+    @Test("工具发起的定时激活同步时长，切换模式保留倒计时")
+    func timedToolActivationSyncsDurationAndModeSwitchPreservesIt() {
+        let fake = FakeCaffeinateEnvironment()
+        let manager = CaffeinateManager(environment: fake)
+
+        // 600 秒不在预设列表（indefinite/30m/1h/2h/5h）里，正是 issue 的场景。
+        manager.activate(mode: .systemAndDisplay, duration: 600)
+
+        #expect(manager.isActive)
+        #expect(manager.duration == 600)
+        // 弹窗时长选择器读取的就是 selectedDuration；它必须等于真实会话时长。
+        #expect(manager.selectedDuration == 600)
+        #expect(fake.scheduledDelays == [600])
+
+        manager.switchAction(.systemOnly)
+
+        #expect(manager.activeAction == .systemOnly)
+        #expect(manager.duration == 600)
+        #expect(manager.selectedDuration == 600)
+        // 新计时器按同一时长重新排定，倒计时没有被清成永久。
+        #expect(fake.scheduledDelays == [600, 600])
+    }
 }
