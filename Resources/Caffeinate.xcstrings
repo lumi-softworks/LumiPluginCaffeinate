@@ -21,6 +21,18 @@
             "state": "translated",
             "value": "%1$lld hours"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld 小時"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld 小時"
+          }
         }
       }
     },
@@ -44,6 +56,18 @@
             "state": "translated",
             "value": "%1$lld minutes"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld 分鐘"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld 分鐘"
+          }
         }
       }
     },
@@ -65,6 +89,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "1 hr"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 小時"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 小時"
           }
         }
       }
@@ -88,6 +124,18 @@
             "state": "translated",
             "value": "2 hr"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 小時"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 小時"
+          }
         }
       }
     },
@@ -110,6 +158,18 @@
             "state": "translated",
             "value": "30 min"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 分鐘"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 分鐘"
+          }
         }
       }
     },
@@ -131,6 +191,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Actions"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作"
           }
         }
       }
@@ -177,6 +249,18 @@
             "state": "translated",
             "value": "Add Custom (minutes):"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添加自訂(分鐘):"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添加自訂(分鐘):"
+          }
         }
       }
     },
@@ -198,6 +282,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add a duration for manual activation."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增自訂防休眠時長。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增自訂防休眠時長。"
           }
         }
       }
@@ -244,6 +340,18 @@
             "state": "translated",
             "value": "Anti-Sleep Durations"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防睡眠時長"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防睡眠時長"
+          }
         }
       }
     },
@@ -267,6 +375,18 @@
             "state": "translated",
             "value": "Anti-sleep"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠"
+          }
         }
       }
     },
@@ -288,6 +408,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Anti-Sleep Durations"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠模式"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠模式"
           }
         }
       }
@@ -312,6 +444,18 @@
             "state": "translated",
             "value": "Anti-sleep mode enabled via Wakey"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用戶通過 Wakey 開啟了防休眠模式"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用戶通過 Wakey 開啟了防休眠模式"
+          }
         }
       }
     },
@@ -335,6 +479,18 @@
             "state": "translated",
             "value": "Auto-restore Timer"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "定時自動恢復"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "定時自動恢復"
+          }
         }
       }
     },
@@ -356,6 +512,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Basic Operations"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "基本操作"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "基本操作"
           }
         }
       }
@@ -380,6 +548,18 @@
             "state": "translated",
             "value": "Caffeinate"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠"
+          }
         }
       }
     },
@@ -403,6 +583,18 @@
             "state": "translated",
             "value": "Caffeinate Poster"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠海報"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠海報"
+          }
         }
       }
     },
@@ -424,6 +616,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose a mode under Actions to start anti-sleep; the checkmark marks the active mode."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在「操作」區選擇一種模式即可開啟防休眠，打勾標示目前生效的模式。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在「操作」區選擇一種模式即可開啟防休眠，打勾標示目前生效的模式。"
           }
         }
       }
@@ -447,6 +651,18 @@
             "state": "translated",
             "value": "Click Reset to restore the built-in durations and drop all custom ones."
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點擊「重設」可恢復內建時長，並清除所有自訂時長。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點擊「重設」可恢復內建時長，並清除所有自訂時長。"
+          }
         }
       }
     },
@@ -469,6 +685,18 @@
             "state": "translated",
             "value": "Click the active mode again to stop anti-sleep and release the power assertion."
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再次點擊目前生效的模式可停止防休眠，並釋放電源斷言。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再次點擊目前生效的模式可停止防休眠，並釋放電源斷言。"
+          }
         }
       }
     },
@@ -490,6 +718,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Click the delete button next to a custom duration to remove it. Built-in durations cannot be deleted."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點擊自訂時長旁的刪除按鈕即可移除。內建時長不可刪除。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點擊自訂時長旁的刪除按鈕即可移除。內建時長不可刪除。"
           }
         }
       }
@@ -514,6 +754,18 @@
             "state": "translated",
             "value": "Click to prevent system from entering sleep mode"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點擊即可阻止系統進入睡眠模式"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點擊即可阻止系統進入睡眠模式"
+          }
         }
       }
     },
@@ -535,6 +787,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Custom Durations"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自訂時長"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自訂時長"
           }
         }
       }
@@ -558,6 +822,18 @@
             "state": "translated",
             "value": "Custom duration"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自訂時長"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自訂時長"
+          }
         }
       }
     },
@@ -579,6 +855,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Custom interval"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自訂時長"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自訂時長"
           }
         }
       }
@@ -602,6 +890,18 @@
             "state": "translated",
             "value": "Delete"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刪除"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刪除"
+          }
         }
       }
     },
@@ -624,6 +924,18 @@
             "state": "translated",
             "value": "Duration"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時長"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時長"
+          }
         }
       }
     },
@@ -645,6 +957,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Duration: a horizontal strip of duration buttons. The selected button is highlighted; the strip scrolls sideways when there are many durations."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時長：一排橫向排列的時長按鈕。選中的按鈕會高亮；時長較多時可橫向捲動檢視。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時長：一排橫向排列的時長按鈕。選中的按鈕會高亮；時長較多時可橫向捲動檢視。"
           }
         }
       }
@@ -669,6 +993,18 @@
             "state": "translated",
             "value": "Ensure screen stays on during presentations or work"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確保演示或工作時螢幕不熄滅"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確保演示或工作時螢幕不熄滅"
+          }
         }
       }
     },
@@ -690,6 +1026,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Enter a positive number of minutes in the Add Custom field and click the add button, or press Return."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在「新增自訂(分鐘)」輸入框中填入大於 0 的分鐘數，點擊新增按鈕或按回車鍵。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在「新增自訂(分鐘)」輸入框中填入大於 0 的分鐘數，點擊新增按鈕或按回車鍵。"
           }
         }
       }
@@ -713,6 +1061,18 @@
             "state": "translated",
             "value": "Figure 1: Status-bar popover layout"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "圖 1：狀態列彈出視窗版面"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "圖 1：狀態列彈出視窗版面"
+          }
         }
       }
     },
@@ -735,6 +1095,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Indefinite"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "永久"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "永久"
           }
         }
       }
@@ -781,6 +1153,18 @@
             "state": "translated",
             "value": "Interface"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "介面說明"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "介面說明"
+          }
         }
       }
     },
@@ -804,6 +1188,18 @@
             "state": "translated",
             "value": "Keep Awake & Allow Display Sleep"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並允許螢幕關閉"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並允許螢幕關閉"
+          }
         }
       }
     },
@@ -825,6 +1221,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep Awake & Allow Display Sleep: prevents system sleep but lets the display turn off. Use it when you only need the computer to keep running."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並允許螢幕關閉：阻止系統休眠，但允許螢幕自動熄滅。只需要電腦保持執行時適用。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並允許螢幕關閉：阻止系統休眠，但允許螢幕自動熄滅。只需要電腦保持執行時適用。"
           }
         }
       }
@@ -849,6 +1257,18 @@
             "state": "translated",
             "value": "Keep Awake & Display On"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並保持螢幕常亮"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並保持螢幕常亮"
+          }
         }
       }
     },
@@ -870,6 +1290,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep Awake & Display On: prevents both system sleep and display sleep. Use it for presentations or long reading sessions."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並保持螢幕常亮：同時阻止系統休眠與螢幕休眠。適合簡報演示或長時間閱讀時使用。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並保持螢幕常亮：同時阻止系統休眠與螢幕休眠。適合簡報演示或長時間閱讀時使用。"
           }
         }
       }
@@ -893,6 +1325,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep Awake & Turn Off Display Now"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並立即關閉螢幕"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並立即關閉螢幕"
           }
         }
       }
@@ -939,6 +1383,18 @@
             "state": "translated",
             "value": "Keep Awake & Turn Off Display Now: turns the display off immediately and keeps the system awake."
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並立即關閉螢幕：立刻關閉螢幕，同時保持系統喚醒。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠並立即關閉螢幕：立刻關閉螢幕，同時保持系統喚醒。"
+          }
         }
       }
     },
@@ -961,6 +1417,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep Screen On"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保持螢幕常亮"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保持螢幕常亮"
           }
         }
       }
@@ -985,6 +1453,18 @@
             "state": "translated",
             "value": "Keep system awake, allow display sleep"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠，允許關閉螢幕"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠，允許關閉螢幕"
+          }
         }
       }
     },
@@ -1008,6 +1488,18 @@
             "state": "translated",
             "value": "Keep system awake, prevent display sleep"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠，禁止關閉螢幕"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止休眠，禁止關閉螢幕"
+          }
         }
       }
     },
@@ -1029,6 +1521,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Key Features"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "核心功能"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "核心功能"
           }
         }
       }
@@ -1053,6 +1557,18 @@
             "state": "translated",
             "value": "Low resource usage, runs silently without interruption"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "低資源佔用，靜默運行，不打擾工作"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "低資源佔用，靜默運行，不打擾工作"
+          }
         }
       }
     },
@@ -1074,6 +1590,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Notes"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "注意事項"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "注意事項"
           }
         }
       }
@@ -1098,6 +1626,18 @@
             "state": "translated",
             "value": "One-click Anti-sleep"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一鍵防休眠"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一鍵防休眠"
+          }
         }
       }
     },
@@ -1119,6 +1659,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open Settings and go to the Caffeinate page."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟設定，進入「防休眠」頁面。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟設定，進入「防休眠」頁面。"
           }
         }
       }
@@ -1142,6 +1694,18 @@
             "state": "translated",
             "value": "Open the menu-bar popover and pick a duration under Duration."
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟選單列彈出視窗，在「時長」區選擇一個時長。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟選單列彈出視窗，在「時長」區選擇一個時長。"
+          }
         }
       }
     },
@@ -1163,6 +1727,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Overview"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "概述"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "概述"
           }
         }
       }
@@ -1187,6 +1763,18 @@
             "state": "translated",
             "value": "Prevent system sleep, supporting scheduled and manual control"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止系統休眠，支援定時和手動控制"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "阻止系統休眠，支援定時和手動控制"
+          }
         }
       }
     },
@@ -1209,6 +1797,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Provide anti-sleep related poster views"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "提供防休眠相關的海報視圖"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "提供防休眠相關的海報視圖"
           }
         }
       }
@@ -1233,6 +1833,18 @@
             "state": "translated",
             "value": "Quick Menu"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "快捷菜單"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "快捷菜單"
+          }
         }
       }
     },
@@ -1256,6 +1868,18 @@
             "state": "translated",
             "value": "Quickly switch different anti-sleep modes via status bar menu"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通過狀態欄菜單快速切換不同的防休眠模式"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通過狀態欄菜單快速切換不同的防休眠模式"
+          }
         }
       }
     },
@@ -1277,6 +1901,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reset"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重設"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重設"
           }
         }
       }
@@ -1300,6 +1936,18 @@
             "state": "translated",
             "value": "Reset to Default Durations"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢復預設時長"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢復預設時長"
+          }
         }
       }
     },
@@ -1321,6 +1969,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Restore the built-in anti-sleep durations."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢復內建防休眠時長。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢復內建防休眠時長。"
           }
         }
       }
@@ -1345,6 +2005,18 @@
             "state": "translated",
             "value": "Set a specific duration, system restores sleep after time ends"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設置特定時長，結束後自動恢復系統休眠"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設置特定時長，結束後自動恢復系統休眠"
+          }
         }
       }
     },
@@ -1367,6 +2039,18 @@
             "state": "translated",
             "value": "Ultra Lightweight"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定頁：在「防睡眠時長」分組下，包含內建時長、新增自訂時長輸入框和重設按鈕。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定頁：在「防睡眠時長」分組下，包含內建時長、新增自訂時長輸入框和重設按鈕。"
+          }
         }
       }
     },
@@ -1388,6 +2072,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Custom interval"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「永久」時長會一直保持系統喚醒，直到你手動停止。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「永久」時長會一直保持系統喚醒，直到你手動停止。"
           }
         }
       }
@@ -1434,6 +2130,18 @@
             "state": "translated",
             "value": "Reset"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新時長會出現在列表中，並標記為自訂時長。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新時長會出現在列表中，並標記為自訂時長。"
+          }
         }
       }
     },
@@ -1456,6 +2164,18 @@
             "state": "translated",
             "value": "Restore the built-in anti-sleep durations."
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本手冊介紹防休眠功能的介面與基本操作：選擇時長、切換防休眠模式，以及管理自訂時長。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本手冊介紹防休眠功能的介面與基本操作：選擇時長、切換防休眠模式，以及管理自訂時長。"
+          }
         }
       }
     },
@@ -1477,6 +2197,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add a duration for manual activation."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠執行期間若要變更時長，直接選擇其他時長，計時器會以新值重新開始。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠執行期間若要變更時長，直接選擇其他時長，計時器會以新值重新開始。"
           }
         }
       }
@@ -1501,6 +2233,18 @@
             "state": "translated",
             "value": "Ultra Lightweight"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "極致輕量"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "極致輕量"
+          }
         }
       }
     },
@@ -1522,6 +2266,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uninstalling or disabling the plugin while anti-sleep is active releases the power assertion immediately."
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠生效期間卸載或停用外掛，會立即釋放電源斷言。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠生效期間卸載或停用外掛，會立即釋放電源斷言。"
           }
         }
       }
@@ -1545,6 +2301,18 @@
             "state": "translated",
             "value": "User Manual"
           }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用手冊"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用手冊"
+          }
         }
       }
     },
@@ -1566,6 +2334,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Custom duration"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠執行期間，到所選時長結束時，系統電源斷言與計時器會自動釋放。"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防休眠執行期間，到所選時長結束時，系統電源斷言與計時器會自動釋放。"
           }
         }
       }
